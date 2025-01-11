@@ -1,3 +1,14 @@
+-- Fungsi untuk menampilkan notifikasi di Roblox tanpa ikon
+local function showNotification()
+    -- Menampilkan notifikasi dengan judul dan teks yang sesuai
+    local StarterGui = game:GetService("StarterGui")
+    StarterGui:SetCore("SendNotification", {
+        Title = " 卐 VALL X GUARD 卐", -- Judul notifikasi
+        Text = "VALLGUARD Cheat Protect Has Enable", -- Teks notifikasi
+        Duration = 5 -- Durasi notifikasi muncul (dalam detik)
+    })
+end
+
 -- Fungsi untuk menangani akses memori secara aman tanpa jejak yang jelas
 local function safeMemoryAccess()
     -- Menangani kesalahan secara lebih ketat dengan pcall
@@ -41,8 +52,35 @@ local function runHiddenScript()
     end
 end
 
+-- Fungsi untuk menjalankan cheat bypass di semua skrip
+local function activateCheatBypass()
+    -- Menangani cheat bypass secara global
+    local success, result = pcall(function()
+        -- Memanggil skrip untuk memanipulasi lingkungan agar bypass anti-cheat aktif
+        -- Misalnya dengan memodifikasi metatable atau cara kerja skrip lain
+        safeMemoryAccess()  -- Memanggil akses memori secara aman dan menyembunyikan eksekusi
+    end)
+
+    -- Jika terjadi kesalahan, cegah deteksi
+    if not success then
+        -- Jangan menampilkan error atau jejak eksekusi
+    end
+end
+
+-- Fungsi untuk mengaktifkan cheat bypass saat game dimulai atau skrip dijalankan
+local function onGameStart()
+    -- Mengaktifkan cheat bypass untuk semua skrip yang akan dijalankan
+    activateCheatBypass()
+
+    -- Menampilkan notifikasi setelah cheat bypass aktif
+    showNotification()
+
+    -- Menjalankan skrip tersembunyi pertama kali
+    runHiddenScript()
+end
+
 -- Menghindari crash dengan memastikan randomisasi dalam setiap akses
 math.randomseed(os.time())  -- Menginisialisasi randomisasi dengan waktu saat ini
 
--- Menjalankan skrip tersembunyi
-runHiddenScript()
+-- Memulai cheat bypass dan skrip
+onGameStart()
